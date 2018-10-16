@@ -16,7 +16,7 @@ module "this" {
   subnet_tier                = "app"                                 #valid value only app, public, data
   ami_owner_account_id       = "${local.ami_owner_account_id}"
   session_manager_bucket_arn = "${local.session_manager_bucket_arn}"
-  sg_id                      = ["${aws_security_group.this.id}"]
+  sg_ids                     = ["${aws_security_group.this.id}"]
 }
 
 resource "aws_security_group" "this" {

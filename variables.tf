@@ -47,7 +47,7 @@ variable "environment" {
   type        = "string"
 }
 
-variable "sg_id" {
+variable "sg_ids" {
   description = "list of security group ids for bastion host"
   type        = "list"
 }

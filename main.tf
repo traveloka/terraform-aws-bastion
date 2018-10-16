@@ -20,7 +20,7 @@ resource "random_shuffle" "subnet" {
 resource "aws_instance" "this" {
   ami                    = "${data.aws_ami.bastion_ami.image_id}"
   instance_type          = "${var.instance_type}"
-  vpc_security_group_ids = ["${var.sg_id}"]
+  vpc_security_group_ids = ["${var.sg_ids}"]
   ebs_optimized          = "${var.ebs_optimized}"
   subnet_id              = "${element(random_shuffle.subnet.result,0)}"
   iam_instance_profile   = "${module.instance_profile.instance_profile_name}"
