@@ -97,3 +97,11 @@ data "aws_iam_policy_document" "session_manager_policy" {
     ]
   }
 }
+
+data "aws_subnet_ids" "app" {
+  vpc_id = "${var.vpc_id}"
+
+  tags = {
+    Tier = "app"
+  }
+}

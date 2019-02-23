@@ -1,10 +1,9 @@
 # terraform-aws-tvlk-bastion #
-Terraform module to create ec2 bastion host using ssm session manager on top of golden bastion AMI baked by site-infra team.
+Terraform module to create ASG bastion host using ssm session manager on top of golden bastion AMI baked by site-infra team.
 
 ## Requirement ##
 * An existing vpc.
 * An existing subnet, recommended using private subnet.
-* Security group id, to allow access to database.
 * S3 bucket to store session managers log
 
 ## Usage ##
