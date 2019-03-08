@@ -1,6 +1,6 @@
 locals {
-  vpc_id                     = "vpc-13ec9077"
-  ami_owner_account_id       = "460124681500"
+  vpc_id                     = "vpc-1122334455"
+  ami_owner_account_id       = "1122334455"
   session_manager_bucket_arn = "arn:aws:s3:::bucket-to-store-session-manager-logs"
   environment                = "staging"
   product_domain             = "tsi"
