@@ -64,12 +64,6 @@ variable "enable_detailed_monitoring" {
   type        = "string"
 }
 
-variable "key_name" {
-  description = "key pair for ec2 instances"
-  type        = "string"
-  default     = ""
-}
-
 variable "asg_initial_capacity" {
   description = "initial capacity for autoscaling group"
   type        = "string"

@@ -17,7 +17,7 @@ module "aws-autoscaling_bastion_asg" {
   lc_instance_profile = "${module.bastion.instance_profile_arn}"
   lc_instance_type    = "${var.instance_type}"
   lc_ami_id           = "${data.aws_ami.bastion_ami.id}"
-  lc_key_name         = "${var.key_name}"
+  lc_key_name         = ""
   lc_ebs_optimized    = "${var.ebs_optimized}"
   lc_monitoring       = "${var.enable_detailed_monitoring}"
 
@@ -104,6 +104,36 @@ resource "aws_security_group" "mysql" {
   }
 }
 
+resource "aws_security_group" "memcached" {
+  name        = "${var.service_name}-memcached"
+  vpc_id      = "${var.vpc_id}"
+  description = "${var.service_name}-memcached security group"
+
+  tags = {
+    Name          = "${var.service_name}-memcached"
+    Service       = "${var.service_name}"
+    ProductDomain = "${var.product_domain}"
+    Environment   = "${var.environment}"
+    Description   = "Security group for ${var.service_name}-memcached"
+    ManagedBy     = "terraform"
+  }
+}
+
+resource "aws_security_group" "redis" {
+  name        = "${var.service_name}-redis"
+  vpc_id      = "${var.vpc_id}"
+  description = "${var.service_name}-redis security group"
+
+  tags = {
+    Name          = "${var.service_name}-redis"
+    Service       = "${var.service_name}"
+    ProductDomain = "${var.product_domain}"
+    Environment   = "${var.environment}"
+    Description   = "Security group for ${var.service_name}-redis"
+    ManagedBy     = "terraform"
+  }
+}
+
 # Security Group Rules
 resource "aws_security_group_rule" "bastion_https_all" {
   type              = "egress"
@@ -183,4 +213,24 @@ resource "aws_security_group_rule" "ingress_from_bastion_to_mysql_3306" {
   security_group_id        = "${aws_security_group.postgres.id}"
   source_security_group_id = "${aws_security_group.bastion.id}"
   description              = "Ingress from ${var.service_name}-${local.role} to ${var.service_name}-mysql in 3306"
+}
+
+resource "aws_security_group_rule" "egress_from_bastion_to_memcached_11211" {
+  type                     = "egress"
+  from_port                = "11211"
+  to_port                  = "11211"
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.bastion.id}"
+  source_security_group_id = "${aws_security_group.memcached.id}"
+  description              = "Egress from ${var.service_name}-${local.role} to ${var.service_name}-memcached in 11211"
+}
+
+resource "aws_security_group_rule" "egress_from_bastion_to_redis_6379" {
+  type                     = "egress"
+  from_port                = "6379"
+  to_port                  = "6379"
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.bastion.id}"
+  source_security_group_id = "${aws_security_group.memcached.id}"
+  description              = "Egress from ${var.service_name}-${local.role} to ${var.service_name}-redis in 6379"
 }
