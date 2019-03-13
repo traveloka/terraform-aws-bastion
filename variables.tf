@@ -15,13 +15,13 @@ variable "vpc_id" {
 }
 
 variable "subnet_tier" {
-  description = "tier of subnet where ec2 instance reside."
+  description = "tier of subnet where bastion ec2 instance reside, we recommend to use the subnet with tier app, as it is private."
   type        = "string"
   default     = "app"
 }
 
 variable "ami_owner_account_id" {
-  description = "aws account id who owns the golden bastion AMI owner"
+  description = "aws account id who owns the golden bastion AMI owner."
   type        = "string"
 }
 
@@ -47,11 +47,6 @@ variable "environment" {
   type        = "string"
 }
 
-variable "session_manager_bucket_arn" {
-  description = "arn of s3 bucket where the session manager input output stored"
-  type        = "string"
-}
-
 variable "ami_name_prefix" {
   description = "prefix for ami filter"
   default     = "tvlk/ubuntu-14/tsi/bastion*"
@@ -64,8 +59,8 @@ variable "enable_detailed_monitoring" {
   type        = "string"
 }
 
-variable "asg_initial_capacity" {
-  description = "initial capacity for autoscaling group"
+variable "asg_capacity" {
+  description = "capacity of ec2 instances for autoscaling group"
   type        = "string"
 }
 

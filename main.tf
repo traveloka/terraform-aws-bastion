@@ -22,8 +22,8 @@ module "aws-autoscaling_bastion_asg" {
   lc_monitoring       = "${var.enable_detailed_monitoring}"
 
   asg_vpc_zone_identifier       = "${data.aws_subnet_ids.app.ids}"
-  asg_min_capacity              = "${var.asg_initial_capacity}"
-  asg_max_capacity              = "${var.asg_initial_capacity}"
+  asg_min_capacity              = "${var.asg_capacity}"
+  asg_max_capacity              = "${var.asg_capacity}"
   asg_health_check_grace_period = "${var.asg_health_check_grace_period}"
   asg_default_cooldown          = "${var.asg_default_cooldown}"
   asg_health_check_type         = "${var.asg_health_check_type}"
@@ -36,11 +36,6 @@ module "bastion" {
 
   service_name = "${var.service_name}"
   cluster_role = "${local.role}"
-}
-
-resource "aws_iam_role_policy" "ssm" {
-  role   = "${module.bastion.role_name}"
-  policy = "${data.aws_iam_policy_document.session_manager_policy.json}"
 }
 
 # Security Groups
