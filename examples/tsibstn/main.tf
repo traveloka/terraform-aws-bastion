@@ -8,13 +8,12 @@ locals {
 }
 
 module "this" {
-  source                        = "../../../terraform-aws-tvlk-bastion"
-  service_name                  = "${local.service_name}"
-  environment                   = "${local.environment}"
-  product_domain                = "${local.product_domain}"
-  vpc_id                        = "${local.vpc_id}"
-  ami_owner_account_id          = "${local.ami_owner_account_id}"
-  asg_capacity                  = "${local.asg_capacity}"
-  description                   = "bastion for ${local.product_domain}"
-  asg_wait_for_capacity_timeout = "10m"
+  source               = "../../../terraform-aws-tvlk-bastion"
+  service_name         = "${local.service_name}"
+  environment          = "${local.environment}"
+  product_domain       = "${local.product_domain}"
+  vpc_id               = "${local.vpc_id}"
+  ami_owner_account_id = "${local.ami_owner_account_id}"
+  asg_capacity         = "${local.asg_capacity}"
+  description          = "bastion for ${local.product_domain}"
 }

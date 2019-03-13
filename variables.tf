@@ -72,7 +72,7 @@ variable "description" {
 variable "asg_wait_for_capacity_timeout" {
   description = "A maximum duration that Terraform should wait for ASG instances to be healthy before timing out"
   type        = "string"
-  default     = "0"
+  default     = "10m"
 }
 
 variable "asg_health_check_grace_period" {
