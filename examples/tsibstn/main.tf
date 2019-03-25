@@ -1,6 +1,6 @@
 locals {
-  vpc_id               = "vpc-1122334455"
-  ami_owner_account_id = "1122334455"
+  vpc_id               = "vpc-11aa22bb"
+  ami_owner_account_id = "1234567890"
   environment          = "staging"
   product_domain       = "tsi"
   service_name         = "tsibstn"

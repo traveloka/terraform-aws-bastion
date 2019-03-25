@@ -1,14 +1,15 @@
 # ASG
 module "aws-autoscaling_bastion_asg" {
-  source = "github.com/traveloka/terraform-aws-autoscaling?ref=v0.1.8-rolling"
+  source = "github.com/traveloka/terraform-aws-autoscaling?ref=v0.1.5"
 
   product_domain = "${var.product_domain}"
   service_name   = "${var.service_name}"
   cluster_role   = "${local.role}"
   environment    = "${var.environment}"
 
-  application = "${local.application}"
-  description = "${var.description}"
+  application  = "${local.application}"
+  description  = "${var.description}"
+  lc_user_data = "${var.lc_user_data}"
 
   lc_security_groups = [
     "${aws_security_group.bastion.id}",

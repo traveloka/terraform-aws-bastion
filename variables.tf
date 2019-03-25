@@ -72,7 +72,7 @@ variable "description" {
 variable "asg_wait_for_capacity_timeout" {
   description = "A maximum duration that Terraform should wait for ASG instances to be healthy before timing out"
   type        = "string"
-  default     = "10m"
+  default     = "0m"
 }
 
 variable "asg_health_check_grace_period" {
@@ -91,4 +91,10 @@ variable "asg_health_check_type" {
   description = "healthchek type for autoscaling group"
   default     = "EC2"
   type        = "string"
+}
+
+variable "lc_user_data" {
+  type        = "string"
+  default     = " "
+  description = "The spawned instances will have this user data. Use the rendered value of a terraform's `template_cloudinit_config` data" // https://www.terraform.io/docs/providers/template/d/cloudinit_config.html#rendered
 }
