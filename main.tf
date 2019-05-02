@@ -221,12 +221,32 @@ resource "aws_security_group_rule" "egress_from_bastion_to_memcached_11211" {
   description              = "Egress from ${var.service_name}-${local.role} to ${var.service_name}-memcached in 11211"
 }
 
+resource "aws_security_group_rule" "ingress_from_bastion_to_memcached_11211" {
+  type                     = "ingress"
+  from_port                = "11211"
+  to_port                  = "11211"
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.memcached.id}"
+  source_security_group_id = "${aws_security_group.bastion.id}"
+  description              = "Ingress from ${var.service_name}-${local.role} to ${var.service_name}-memcached in 11211"
+}
+
 resource "aws_security_group_rule" "egress_from_bastion_to_redis_6379" {
   type                     = "egress"
   from_port                = "6379"
   to_port                  = "6379"
   protocol                 = "tcp"
   security_group_id        = "${aws_security_group.bastion.id}"
-  source_security_group_id = "${aws_security_group.memcached.id}"
+  source_security_group_id = "${aws_security_group.redis.id}"
   description              = "Egress from ${var.service_name}-${local.role} to ${var.service_name}-redis in 6379"
+}
+
+resource "aws_security_group_rule" "ingress_from_bastion_to_redis_6379" {
+  type                     = "ingress"
+  from_port                = "6379"
+  to_port                  = "6379"
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.redis.id}"
+  source_security_group_id = "${aws_security_group.bastion.id}"
+  description              = "Ingress from ${var.service_name}-${local.role} to ${var.service_name}-redis in 6379"
 }
