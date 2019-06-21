@@ -35,8 +35,10 @@ module "aws-autoscaling_bastion_asg" {
 module "bastion" {
   source = "github.com/traveloka/terraform-aws-iam-role.git//modules/instance?ref=v1.0.1"
 
-  service_name = "${var.service_name}"
-  cluster_role = "${local.role}"
+  cluster_role   = "${local.role}"
+  service_name   = "${var.service_name}"
+  environment    = "${var.environment}"
+  product_domain = "${var.product_domain}"
 }
 
 # Security Groups
