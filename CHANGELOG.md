@@ -1,33 +1,23 @@
-## v0.2.0 (Feb 28, 2019)
-
-NOTES:
-* Any Notes regarding your submitted PR, like breaking changes or else.
-
-FEATURES:
-
-* **New Source:** `aws_000_0000` ([#references_to_issue](./))
-
-ENHANCEMENTS:
-
-* feature: Add support for new version of AWS API
+## v2.0.2 (May 7, 2019)
 
 BUG FIXES:
 
-* Prevent error from evil bugs
+* Use correct SG in redis egress and add ingress rules for memcached and Redis
 
-## v0.1.0 (Jan 1, 2019)
-
-NOTES:
-* Any Notes regarding your submitted PR, like breaking changes or else.
-
-FEATURES:
-
-* **New Source:** `aws_000_0000` ([#references_to_issue](./))
+## v2.0.1 (Mar 25, 2019)
 
 ENHANCEMENTS:
 
-* feature: Add support for new version of AWS API
+* Used terraform autoscaling v0.1.5 (#4)
 
-BUG FIXES:
+## v2.0.0 (Mar 14, 2019)
 
-* Prevent error from evil bugs
+NOTES: 
+
+* Create bastion using ASG
+
+## v1.0.0 (Oct 16, 2018)
+
+NOTES:
+
+* Remove stage tag, since it is not shared with other account.
