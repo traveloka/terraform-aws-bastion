@@ -33,10 +33,18 @@ module "aws-autoscaling_bastion_asg" {
 
 # Instance Role
 module "bastion" {
-  source = "github.com/traveloka/terraform-aws-iam-role.git//modules/instance?ref=v0.6.0"
+  source = "github.com/traveloka/terraform-aws-iam-role.git//modules/instance?ref=v1.0.2"
 
-  service_name = "${var.service_name}"
-  cluster_role = "${local.role}"
+  service_name   = "${var.service_name}"
+  cluster_role   = "${local.role}"
+  product_domain = "${var.product_domain}"
+  environment    = "${var.environment}"
+}
+
+resource "aws_iam_role_policy" "policy_dynamodb_access" {
+  name   = "DynamoDBAccess"
+  role   = "${module.bastion.role_name}"
+  policy = "${data.aws_iam_policy_document.dynamodb_access.json}"
 }
 
 # Security Groups
