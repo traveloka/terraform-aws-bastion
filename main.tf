@@ -214,7 +214,7 @@ resource "aws_security_group_rule" "ingress_from_bastion_to_mysql_3306" {
   from_port                = "3306"
   to_port                  = "3306"
   protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.postgres.id}"
+  security_group_id        = "${aws_security_group.mysql.id}"
   source_security_group_id = "${aws_security_group.bastion.id}"
   description              = "Ingress from ${var.service_name}-${local.role} to ${var.service_name}-mysql in 3306"
 }
