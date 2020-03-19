@@ -33,6 +33,11 @@ output "shared_sg_redis_id" {
   value       = "${aws_security_group.redis.id}"
 }
 
+output "shared_sg_elasticsearch_id" {
+  description = "id of shared security group for elasticsearch."
+  value       = "${aws_security_group.elasticsearch.id}"
+}
+
 output "instance_role_name" {
   description = "role name for the instances."
   value       = "${module.bastion.role_name}"

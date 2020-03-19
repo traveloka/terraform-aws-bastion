@@ -138,6 +138,21 @@ resource "aws_security_group" "redis" {
   }
 }
 
+resource "aws_security_group" "elasticsearch" {
+  name        = "${var.service_name}-elasticsearch"
+  vpc_id      = "${var.vpc_id}"
+  description = "${var.service_name}-elasticsearch security group"
+
+  tags = {
+    Name          = "${var.service_name}-elasticsearch"
+    Service       = "${var.service_name}"
+    ProductDomain = "${var.product_domain}"
+    Environment   = "${var.environment}"
+    Description   = "Security group for ${var.service_name}-elasticsearch"
+    ManagedBy     = "terraform"
+  }
+}
+
 # Security Group Rules
 resource "aws_security_group_rule" "bastion_https_all" {
   type              = "egress"
@@ -148,7 +163,7 @@ resource "aws_security_group_rule" "bastion_https_all" {
   cidr_blocks       = ["0.0.0.0/0"]
   description       = "Egress from ${var.service_name}-${local.role} to all in 443"
 }
-  
+
 resource "aws_security_group_rule" "bastion_http_all" {
   type              = "egress"
   from_port         = "80"
@@ -267,4 +282,24 @@ resource "aws_security_group_rule" "ingress_from_bastion_to_redis_6379" {
   security_group_id        = "${aws_security_group.redis.id}"
   source_security_group_id = "${aws_security_group.bastion.id}"
   description              = "Ingress from ${var.service_name}-${local.role} to ${var.service_name}-redis in 6379"
+}
+
+resource "aws_security_group_rule" "egress_from_bastion_to_elasticsearch_443" {
+  type                     = "egress"
+  from_port                = "443"
+  to_port                  = "443"
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.bastion.id}"
+  source_security_group_id = "${aws_security_group.elasticsearch.id}"
+  description              = "Egress from ${var.service_name}-${local.role} to ${var.service_name}-elasticsearch in 443"
+}
+
+resource "aws_security_group_rule" "ingress_from_bastion_to_elasticsearch_443" {
+  type                     = "ingress"
+  from_port                = "443"
+  to_port                  = "443"
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.elasticsearch.id}"
+  source_security_group_id = "${aws_security_group.bastion.id}"
+  description              = "Ingress from ${var.service_name}-${local.role} to ${var.service_name}-elasticsearch in 443"
 }
