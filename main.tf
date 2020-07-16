@@ -29,7 +29,7 @@ module "aws-autoscaling_bastion_asg" {
   asg_default_cooldown          = "${var.asg_default_cooldown}"
   asg_health_check_type         = "${var.asg_health_check_type}"
   asg_wait_for_capacity_timeout = "${var.asg_wait_for_capacity_timeout}"
-  additional_asg_tags           = "${var.asg_tags}"
+  asg_tags                      = "${var.additional_asg_tags}"
 }
 
 # Instance Role
