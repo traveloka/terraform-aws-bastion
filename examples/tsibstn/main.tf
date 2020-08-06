@@ -30,4 +30,3 @@ resource "aws_iam_role_policy_attachment" "bastion_policy" {
   role       = "${module.this.instance_role_name}"
   policy_arn = "${module.sesson_manager_config.iam_policy_arn}"
 }
-  
