@@ -49,7 +49,7 @@ variable "environment" {
 
 variable "ami_name_prefix" {
   description = "prefix for ami filter"
-  default     = "tvlk/ubuntu-14/tsi/bastion*"
+  default     = "tvlk/ubuntu-16/tsi/bastion*"
   type        = string
 }
 
