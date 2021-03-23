@@ -49,7 +49,7 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | additional\_asg\_tags | The created ASG (and spawned instances) will have these tags, merged over the default | `list` | `[]` | no |
-| ami\_name\_prefix | prefix for ami filter | `string` | `"tvlk/ubuntu-14/tsi/bastion*"` | no |
+| ami\_name\_prefix | prefix for ami filter | `string` | `"tvlk/ubuntu-20/tsi/bastion*"` | no |
 | ami\_owner\_account\_id | aws account id who owns the golden bastion AMI owner. | `string` | n/a | yes |
 | asg\_capacity | capacity of ec2 instances for autoscaling group | `string` | n/a | yes |
 | asg\_default\_cooldown | Time, in seconds, the minimum interval of two scaling activities | `string` | `"300"` | no |
