@@ -20,5 +20,4 @@ module "this" {
   ami_owner_account_id = local.ami_owner_account_id
   asg_capacity         = local.asg_capacity
   description          = "bastion for ${local.product_domain}"
-  subnet_tier          = "public"
 }
