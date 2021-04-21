@@ -7,6 +7,16 @@ FEATURES:
 
 * Add support for root volume type value to gp3
 
+## v3.0.1 (Apr 19, 2021)
+ENHANCEMENTS:
+
+* Update default to use Ubuntu 20 AMI
+
+## v3.0.0 (Sep 30, 2020)
+ENHANCEMENTS:
+
+* Upgrade config to support terraform v0.12
+
 
 ## v2.1.3 (Aug 06, 2020)
 
