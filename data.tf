@@ -23,14 +23,6 @@ data "aws_ami" "bastion_ami" {
   }
 }
 
-data "aws_subnet_ids" "app" {
-  vpc_id = var.vpc_id
-
-  tags = {
-    Tier = "app"
-  }
-}
-
 data "aws_iam_policy_document" "dynamodb_access" {
   statement {
     sid = "AllowDynamoDBAccess"

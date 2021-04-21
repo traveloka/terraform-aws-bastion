@@ -1,3 +1,13 @@
+## v4.0.0 (Apr 21, 2021)
+ENHANCEMENTS:
+
+* Update autoscaling group to use launch template instead of launch config
+
+FEATURES:
+
+* Add support for root volume type value to gp3
+
+
 ## v2.1.3 (Aug 06, 2020)
 
 NOTES:

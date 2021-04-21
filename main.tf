@@ -1,28 +1,40 @@
 # ASG
 module "aws-autoscaling_bastion_asg" {
-  source = "github.com/traveloka/terraform-aws-autoscaling?ref=v0.1.9-rolling"
+  source = "github.com/traveloka/terraform-aws-autoscaling?ref=v0.3.4"
 
   product_domain = var.product_domain
   service_name   = var.service_name
   cluster_role   = local.role
   environment    = var.environment
 
-  application  = local.application
-  description  = var.description
-  lc_user_data = var.lc_user_data
+  application = local.application
+  description = var.description
+  user_data   = var.user_data
+  volume_size = var.volume_size
 
-  lc_security_groups = [
+  volume_type = var.volume_type
+
+  security_groups = [
     aws_security_group.bastion.id,
   ]
 
-  lc_instance_profile = module.bastion.instance_profile_arn
-  lc_instance_type    = var.instance_type
-  lc_ami_id           = data.aws_ami.bastion_ami.id
-  lc_key_name         = ""
-  lc_ebs_optimized    = var.ebs_optimized
-  lc_monitoring       = var.enable_detailed_monitoring
+  instance_profile_name = module.bastion.instance_profile_name
+  image_owners          = [var.ami_owner_account_id]
 
-  asg_vpc_zone_identifier       = data.aws_subnet_ids.app.ids
+  image_filters = [
+    {
+      name   = "name"
+      values = [var.ami_name_prefix]
+    },
+    {
+      name   = "virtualization-type"
+      values = ["hvm"]
+    },
+  ]
+
+
+
+  asg_vpc_zone_identifier       = data.aws_subnet_ids.subnet.ids
   asg_min_capacity              = var.asg_capacity
   asg_max_capacity              = var.asg_capacity
   asg_health_check_grace_period = var.asg_health_check_grace_period

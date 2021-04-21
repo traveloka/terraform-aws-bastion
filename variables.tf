@@ -36,9 +36,15 @@ variable "instance_type" {
   type        = string
 }
 
-variable "root_volume_size" {
+variable "volume_size" {
   description = "size for root volume instances."
   default     = "8"
+  type        = string
+}
+
+variable "volume_type" {
+  description = "type of ebs volume for root volume instances."
+  default     = "gp3"
   type        = string
 }
 
@@ -93,7 +99,7 @@ variable "asg_health_check_type" {
   type        = string
 }
 
-variable "lc_user_data" {
+variable "user_data" {
   type        = string
   default     = " "
   description = "The spawned instances will have this user data. Use the rendered value of a terraform's `template_cloudinit_config` data" // https://www.terraform.io/docs/providers/template/d/cloudinit_config.html#rendered
