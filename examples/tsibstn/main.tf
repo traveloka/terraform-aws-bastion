@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 locals {
-  vpc_id               = "vpc-012b395e72282f945"
-  ami_owner_account_id = "745412875337"
+  vpc_id               = "vpc-11abbccdd"
+  ami_owner_account_id = "012345678"
   environment          = "staging"
   product_domain       = "tsi"
   service_name         = "tsibstn"
