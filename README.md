@@ -10,7 +10,7 @@ Terraform module to create ASG bastion host using ssm session manager on top of 
 This module creates following resources:
 * [aws_autoscaling_group](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html).
 To stop or start an instances, you can change the asg_capacity value.
-* [aws_launch_config](https://www.terraform.io/docs/providers/aws/r/launch_configuration.html).
+* [aws_launch_template](https://www.terraform.io/docs/providers/aws/r/launch_template.html).
 * [aws_security_group](https://www.terraform.io/docs/providers/aws/r/security_group.html).
 Several security group will be created by this module, to give access from this bastion, you need to attach the share security group to your database.
 
@@ -29,7 +29,7 @@ This Terraform module uses another Terraform module, here is the list of Terrafo
 
 ## Terraform Versions
 
-Created and tested using Terraform version `0.11.14`
+Created and tested using Terraform version `0.12.30`
 
 ## Getting Started
 
@@ -48,7 +48,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional\_asg\_tags | The created ASG (and spawned instances) will have these tags, merged over the default | `list` | `[]` | no |
+| additional\_asg\_tags | The created ASG (and spawned instances) will have these tags, merged over the default | `list(map(string))` | `[]` | no |
 | ami\_name\_prefix | prefix for ami filter | `string` | `"tvlk/ubuntu-20/tsi/bastion*"` | no |
 | ami\_owner\_account\_id | aws account id who owns the golden bastion AMI owner. | `string` | n/a | yes |
 | asg\_capacity | capacity of ec2 instances for autoscaling group | `string` | n/a | yes |
@@ -61,11 +61,12 @@ No requirements.
 | enable\_detailed\_monitoring | wheter to enable detailed monitoring for ec2 instances or not | `string` | `"false"` | no |
 | environment | environment for this resources. | `string` | n/a | yes |
 | instance\_type | instance type for bastion hosts. | `string` | `"t2.medium"` | no |
-| lc\_user\_data | The spawned instances will have this user data. Use the rendered value of a terraform's `template_cloudinit_config` data | `string` | `" "` | no |
 | product\_domain | product domain who own this ec2 instances. | `string` | n/a | yes |
-| root\_volume\_size | size for root volume instances. | `string` | `"8"` | no |
 | service\_name | service name for the instance | `string` | n/a | yes |
 | subnet\_tier | tier of subnet where bastion ec2 instance reside, we recommend to use the subnet with tier app, as it is private. | `string` | `"app"` | no |
+| user\_data | The spawned instances will have this user data. Use the rendered value of a terraform's `template_cloudinit_config` data | `string` | `" "` | no |
+| volume\_size | size for root volume instances. | `string` | `"8"` | no |
+| volume\_type | type of ebs volume for root volume instances. | `string` | `"gp3"` | no |
 | vpc\_id | vpc id where ec2 instances reside. | `string` | n/a | yes |
 
 ## Outputs
