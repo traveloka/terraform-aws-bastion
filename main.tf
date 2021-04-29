@@ -11,8 +11,10 @@ module "aws-autoscaling_bastion_asg" {
   description = var.description
   user_data   = var.user_data
   volume_size = var.volume_size
-
   volume_type = var.volume_type
+  
+  launch_template_overrides    = var.launch_template_overrides
+  mixed_instances_distribution = var.mixed_instances_distribution
 
   security_groups = [
     aws_security_group.bastion.id,

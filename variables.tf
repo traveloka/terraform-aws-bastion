@@ -111,3 +111,34 @@ variable "additional_asg_tags" {
   description = "The created ASG (and spawned instances) will have these tags, merged over the default"
 }
 
+variable "launch_template_overrides" {
+  type = list(map(string))
+
+  default = [
+    {
+      "instance_type" = "t3a.nano"
+    },
+    {
+      "instance_type" = "t3.nano"
+    },
+  ]
+
+  description = <<EOT
+  List of nested arguments provides the ability to specify multiple instance types. See https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#override
+  When using plain launch template, the first element's instance_type will be used as the launch template instance type.
+  EOT
+}
+
+variable "mixed_instances_distribution" {
+  type        = map(string)
+  description = "Specify the distribution of on-demand instances and spot instances. See https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_InstancesDistribution.html"
+
+  default = {
+    on_demand_allocation_strategy            = "prioritized"
+    on_demand_base_capacity                  = "0"
+    on_demand_percentage_above_base_capacity = "100"
+    spot_allocation_strategy                 = "lowest-price"
+    spot_instance_pools                      = "2"
+    spot_max_price                           = ""
+  }
+}
